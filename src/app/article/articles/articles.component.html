@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-6">
+
+
+    <h1 class="text-center mb-5">Liste des derniers Articles</h1>
+
+    <div>
+
+      <app-pagination [currentPage]="currentPage" [items]="articles.length" [itemsPerPage]="itemsPerPage"
+        (pageChange)="currentPage=$event">
+      </app-pagination>
+
+      <div *ngFor="let a of getArticlesFromCurrentPage()" class="border border-primary rounded p-3 m-2">
+        <a routerLink="/article/{{a.id}}">
+          <h4>{{a.title |uppercase}} <small *ngIf=" !auth.hasRole('ROLE_SCHOOL')">({{a.comments.length}}
+              Commentaire(s))</small></h4>
+        </a>
+
+        <div class="p-2">
+
+          <p>Dans la catégorie <strong>{{a.category.title }}</strong></p>
+          <p>Le {{a.createdAt|date:'d/M/y à HH:mm'}}
+
+          <p *ngIf="a.updatedAt!=a.createdAt">Mis à jour {{a.updatedAt|date:'d/M/y à HH:mm'}}</p>
+        </div>
+      </div>
+      <app-pagination [currentPage]="currentPage" [items]="articles.length" [itemsPerPage]="itemsPerPage"
+        (pageChange)="currentPage=$event">
+      </app-pagination>
+    </div>
+
+
+  </div>
+  <div class="border border-primary rounded p-3  col-lg-5 ">
+    <h2 class="text-center mb-5 ">
+      Voir les articles d'une catégorie en particulier
+    </h2>
+
+    <div class=" text-center">
+      <div class="spinner-border text-primary" role="status" *ngIf="!categories">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p *ngFor="let cat of categories"><a
+          routerLink="/category/{{cat.id}}"><strong>{{cat.title |uppercase}}</strong></a>
+        ({{cat.articles.length}})
+      </p>
+
+    </div>
+  </div>
+</div>

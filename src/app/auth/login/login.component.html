@@ -1,0 +1,38 @@
+<div class="d-flex flex-column justify-content-center  align-items-around text-center " style="height:100vh">
+
+  <h1 class="mb-5">Connexion</h1>
+  <div class="alert alert-danger" *ngIf="error">le compte n'est pas encore validé par un administrateur ou les données
+    fournies sont erronnées
+
+  </div>
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Adresse de connexion" formControlName="username"
+        [class.is-invalid]="form.controls['username'].invalid&&submitted">
+      <p class="invalid-feedback" *ngIf="form.controls['username'].hasError('required')&&submitted">
+        L'adresse email est obligatoire !!
+      </p>
+      <p class="invalid-feedback" *ngIf="form.controls['username'].hasError('email')&&submitted">
+        Le format de l'adresse email est invalide ou votre compte n'est pas encore valider
+      </p>
+
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Mot de passe"
+        [class.is-invalid]="form.controls['password'].invalid&&submitted" formControlName="password">
+      <p class="invalid-feedback" *ngIf="form.controls['password'].hasError('required')&&submitted">
+        Le mote de passe est obligatoire !!!
+      </p>
+
+    </div>
+    <div>
+      <p>Pas encore inscrit ?
+
+        <a routerLink="/register">Inscription</a>
+      </p>
+    </div>
+    <button class="btn btn-success">Connexion</button>
+  </form>
+
+</div>

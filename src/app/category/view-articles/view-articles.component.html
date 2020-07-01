@@ -1,0 +1,24 @@
+<div *ngIf="articles">
+
+
+    <div class="text-center m-5">
+
+        <p>Dans la Catégorie</p>
+        <h1> "{{articles[0].category.title}}"</h1>
+
+    </div>
+
+    <div *ngFor="let a of articles" class="border border-primary rounded p-3 m-2">
+        <a routerLink="/article/{{a.id}}">
+            <h4>{{a.title |uppercase}}</h4>
+        </a>
+
+
+    </div>
+</div>
+
+<div *ngIf="!articles">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
