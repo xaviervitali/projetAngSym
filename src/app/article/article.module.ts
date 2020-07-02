@@ -3,14 +3,14 @@ import { SharedModule } from '../shared/shared.module';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleCreateComponent } from './create/article-create.component';
 import { ArticleViewComponent } from './view/view.component';
-import { EditComponent } from './edit/edit.component';
+import { ArticleEditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     ArticlesComponent,
     ArticleCreateComponent,
     ArticleViewComponent,
-    EditComponent,
+    ArticleEditComponent,
   ],
   imports: [SharedModule],
 })

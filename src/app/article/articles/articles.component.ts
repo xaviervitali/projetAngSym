@@ -3,9 +3,10 @@ import { ArticleService } from '../article.service';
 import { Article } from '../article';
 import { UiService } from 'src/app/ui/ui.service';
 import { ActivatedRoute } from '@angular/router';
-import { Category } from '../category';
+import { Category } from '../../category/category';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { CategoryService } from 'src/app/category/category.service';
 
 @Component({
   selector: 'app-article',
@@ -21,7 +22,8 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private ui: UiService,
     private activatedRoute: ActivatedRoute,
-    public auth: AuthService
+    public auth: AuthService,
+    private categorieService: CategoryService
   ) {}
   currentPage: number = 1;
   pages = [];
@@ -29,9 +31,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.articles = this.activatedRoute.snapshot.data.article;
-    this.articleService
-      .findCategories()
-      .subscribe((cat) => (this.categories = cat));
+    this.categorieService.findAll().subscribe((cat) => (this.categories = cat));
   }
 
   getArticlesFromCurrentPage() {

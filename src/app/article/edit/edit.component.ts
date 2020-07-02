@@ -5,16 +5,17 @@ import { ArticleService } from '../article.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UiService } from 'src/app/ui/ui.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Category } from '../category';
+import { Category } from '../../category/category';
 import { map, switchMap } from 'rxjs/operators';
 import { pipe, Observable } from 'rxjs';
+import { CategoryService } from 'src/app/category/category.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
 })
-export class EditComponent implements OnInit {
+export class ArticleEditComponent implements OnInit {
   categories$: Observable<Category[]>;
 
   article: Article;
@@ -27,13 +28,14 @@ export class EditComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
+    private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private ui: UiService
   ) {}
 
   ngOnInit(): void {
-    this.categories$ = this.articleService.findCategories();
+    this.categories$ = this.categoryService.findAll();
 
     this.activatedRoute.paramMap
       .pipe(

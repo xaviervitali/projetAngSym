@@ -1,4 +1,4 @@
-import { Article } from './article';
+import { Article } from '../article/article';
 
 export interface Category {
   id?: number;

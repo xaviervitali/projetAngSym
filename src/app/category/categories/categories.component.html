@@ -1,0 +1,47 @@
+<div *ngIf="categories">
+
+    <div class="border border-primary rounded p-3">
+        <h1 class="text-center mb-5 ">
+            Liste des catégories
+        </h1>
+
+        <div class=" text-center">
+            <div class="spinner-border text-primary" role="status" *ngIf="!categories">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <table class="table">
+
+                <thead>
+
+                    <th>Titre de la catégorie</th>
+                    <th>Nombre d'articles liés</th>
+                    <th
+                        *ngIf="auth.hasRole('ROLE_ADMIN') || auth.hasRole('ROLE_MODERATOR') ||auth.hasRole('ROLE_WRITTER') ">
+                        Admministration</th>
+
+                </thead>
+                <tr *ngFor="let cat of categories">
+
+                    <td>
+
+                        <a routerLink="/category/{{cat.id}}"><strong>{{cat.title |uppercase}}</strong></a>
+                    </td>
+                    <td>
+
+                        {{cat.articles.length}}
+                    </td>
+                    <td
+                        *ngIf="auth.hasRole('ROLE_ADMIN') || auth.hasRole('ROLE_MODERATOR') ||auth.hasRole('ROLE_WRITTER') ">
+
+                        <a routerLink="/category/edit/{{cat.id}}" class="btn btn-info btn-sm">modifier</a>
+                        <button class="btn btn-danger btn-sm" (click)="handleDelete(cat.id)">Supprimer</button>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+<div class="spinner-border text-primary" role="status" *ngIf="!categories">
+    <span class="sr-only">Loading...</span>
+</div>

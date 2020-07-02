@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncSubject, Subject } from 'rxjs';
+import { CategoryService } from 'src/app/category/category.service';
 @Component({
   selector: 'app-article-create',
   templateUrl: './article-create.component.html',
@@ -19,12 +20,14 @@ export class ArticleCreateComponent implements OnInit {
   submitted = false;
   categories = [];
 
-  constructor(private articleService: ArticleService, private router: Router) {}
+  constructor(
+    private articleService: ArticleService,
+    private router: Router,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit(): void {
-    this.articleService
-      .findCategories()
-      .subscribe((cat) => (this.categories = cat));
+    this.categoryService.findAll().subscribe((cat) => (this.categories = cat));
   }
 
   handleSubmit() {

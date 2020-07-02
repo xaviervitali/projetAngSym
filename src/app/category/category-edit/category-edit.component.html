@@ -1,0 +1,9 @@
+<h1>Modifier le titre d'une catégorie</h1>
+
+<form [formGroup]="form" (ngSubmit)='handleSubmit()'>
+
+    <div class="form-group">
+        <input type="text" class="form-control" formControlName="title">
+    </div>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+</form>

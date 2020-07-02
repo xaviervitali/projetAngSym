@@ -5,17 +5,18 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ArticleModule } from './article/article.module';
-import { ViewArticlesComponent } from './category/view-articles/view-articles.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { CategoryModule } from './category/categrory.module';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, ViewArticlesComponent],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule,
     ArticleModule,
     EditorModule,
+    CategoryModule,
   ],
 
   bootstrap: [AppComponent],

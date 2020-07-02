@@ -4,7 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import { Article } from './article';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Category } from './category';
+import { Category } from '../category/category';
 
 @Injectable({
   providedIn: 'root',
@@ -35,12 +35,6 @@ export class ArticleService {
 
   create(article: Article) {
     return this.http.post<Article>(environment.apiUrl + '/articles', article);
-  }
-
-  findCategories() {
-    return this.http
-      .get<Category[]>(environment.apiUrl + '/categories')
-      .pipe(map((data) => data['hydra:member'] as Article[]));
   }
 
   findCategory(id: number) {
