@@ -1,0 +1,31 @@
+<h1 class="text-center mb-5">
+    Liste des fichiers Téléchargeables
+</h1>
+
+
+<div *ngIf="noUpload">
+    <p>Pas de téléchargement a ce jour ...</p>
+</div>
+
+<div class="d-flex flex-wrap justify-content-around align-items-end" *ngIf="uploads.length> 0">
+
+    <div class="card m-3" style="width: 18rem;" *ngFor="let up of uploads">
+        <a *ngIf="isImage(up.fileUploadedName)" href="http://localhost:3000/assets/files/{{up.fileUploadedName}}"
+            target="_blank"> <img class="card-img-top" src="http://localhost:3000/assets/files/{{up.fileUploadedName}}"
+                alt="{{up.fileUploadedName}}"></a>
+        <div class="card-body">
+            <h5 class="card-title">{{up.title}}</h5>
+            <p class="card-text">Mis en ligne le {{up.updatedAt | date:"d/M/y à H:m"}}</p>
+            <p>
+                <a href="http://localhost:3000/assets/files/{{up.fileUploadedName}}" target="_blank">
+                    Telecharcher le ficher
+                </a>
+            </p>
+            <!-- <p class="card-text">par {{up.addedBy.firstName }} {{up.addedBy.lastName | slice(0,1)}}.</p>    -->
+
+        </div>
+    </div>
+</div>
+<div class="spinner-border text-primary" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
+</div>

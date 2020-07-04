@@ -1,60 +1,108 @@
-<div class="d-flex flex-column justify-content-center  align-items-around text-center " style="height:100vh">
-  <h1>S'inscrire</h1>
+<div class="d-flex flex-column justify-content-center  align-items-between text-center" id="main" style="height:100vh">
+  <h1 class="mb-5">S'inscrire</h1>
   <form [formGroup]="form" (submit)="handleSubmit()">
+    <div class="form-check-inline" *ngFor=" let g of gender">
+      <input formControlName="gender" class="form-check-input" type="radio" [value]="g" (click)="handleGender(g)"
+        [class.is-invalid]="hasErrors('gender')||getErrorForControl('gender')">
+      <p class="invalid-feedback" *ngIf="getErrorForControl('gender')">
+        {{getErrorForControl('gender')}}
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('gender')&&form.controls.gender.hasError('required')">
+        Le champs est obligatoire
+      </p>
+
+      <label class="form-check-label">
+        {{g}}
+      </label>
+    </div>
     <div class="form-group-inline">
       <input formControlName="firstName" type="text" placeholder="Votre prénom" class="form-control mb-1"
-        [class.is-invalid]="getErrorForControl('firstName')">
+        [class.is-invalid]="hasErrors('firstName')||getErrorForControl('firstName')">
       <p class="invalid-feedback" *ngIf="getErrorForControl('firstName')">
         {{getErrorForControl('firstName')}}
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('firstName')&&form.controls.firstName.hasError('required')">
+        Le champs est obligatoire
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('firstName')&&form.controls.firstName.hasError('minlength')">
+        Le prénom doit avoir au moins 2 caractères
       </p>
     </div>
     <div class="form-group-inline">
       <input formControlName="lastName" type="text" placeholder="Votre nom" class="form-control mb-1"
-        [class.is-invalid]="getErrorForControl('lastName')">
+        [class.is-invalid]="hasErrors('lastName')||getErrorForControl('lastName')">
+      <p class="invalid-feedback" *ngIf="getErrorForControl('lastName')">
+        {{getErrorForControl('lastName')}}
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('lastName')&&form.controls.lastName.hasError('required')">
+        Le champs est obligatoire
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('lastName')&&form.controls.lastName.hasError('minlength')">
+        Le nom de famillle doit avoir au moins 2 caractères
+      </p>
 
 
     </div>
     <div class="form-group">
       <input formControlName="email" type="email" placeholder="Votre adressse email" class="form-control mb-1"
-        [class.is-invalid]="getErrorForControl('email')">
+        [class.is-invalid]="hasErrors('email')||getErrorForControl('email')">
       <p class="invalid-feedback" *ngIf="getErrorForControl('email')">
         {{getErrorForControl('email')}}
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('email')&&form.controls.email.hasError('required')">
+        Le champs est obligatoire
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('email')&&form.controls.email.hasError('email')">
+        Cela ne ressemble pas un email valide
       </p>
     </div>
     <div class="form-group">
       <input formControlName="password" type="password" placeholder="Entrer un mot de passe" class="form-control mb-1"
-        [class.is-invalid]="getErrorForControl('password')">
+        [class.is-invalid]="hasErrors('password')||getErrorForControl('password')">
       <p class="invalid-feedback" *ngIf="getErrorForControl('password')">
         {{getErrorForControl('password')}}
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('password')&&form.controls.password.hasError('required')">
+        Le champs est obligatoire
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('password')&&form.controls.password.hasError('minlength')">
+        Le mot de passe doit contenir au moins 8 caractères
       </p>
     </div>
     <div class="form-group">
       <input formControlName="confirmation" type="password" placeholder="Confirmer le mot de passe"
-        class="form-control  mb-1" [class.is-invalid]="getErrorForControl('confirmation')">
+        class="form-control mb-1" [class.is-invalid]="hasErrors('confirmation')||getErrorForControl('confirmation')">
       <p class="invalid-feedback" *ngIf="getErrorForControl('confirmation')">
         {{getErrorForControl('confirmation')}}
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('confirmation')&&form.controls.confirmation.hasError('required')">
+        Le champs est obligatoire
+      </p>
+      <p class="invalid-feedback" *ngIf="hasErrors('confirmation')&&form.controls.confirmation.hasError('minlength')">
+        Le mot de passe doit contenir au moins 8 caractères
       </p>
     </div>
     <div class="form-group border rounded p-5 mr-5 ml-5">
       <h4 class="text-center">Classe(s)</h4>
       <div class="form-check-inline" *ngFor="let c of classes">
-        <input class="form-check-input" type="checkbox" [value]="c" [id]="c" (change)="handleChange($event)">
+        <input class="form-check-input" type="checkbox" [value]="c" (change)="handleChange($event)"
+          [class.is-invalid]="!classesSelected||submitted">
+        <p class="invalid-feedback">
+          Veuillez selectionner au moins un classe
+        </p>
         <label class="form-check-label" [for]="c">
           {{c}}
         </label>
       </div>
     </div>
-    <div class="row mb-2">
 
-      <textarea formControlName="about" cols="30" class="col-9" rows="10" placeholder="Parlez nous de vous"></textarea>
-      <div class="col-3">
+    <textarea class="form-control" formControlName="about" placeholder="Parlez nous de vous"></textarea>
+    <div>
 
-        <input class="form-check-input" type="checkbox" id="newsletter" formControlName="newsletter"
-          (change)="handleChange($event)">
-        <label class="form-check-label" for="newsletter">
-          Recevoir une notification lors de l'ajout d'un article
-        </label>
-      </div>
+      <input class="form-check-input" type="checkbox" id="emailNotification" formControlName="emailNotification">
+      <label class=" form-check-label" for="emailNotification">
+        Recevoir une notification lors de l'ajout d'un article
+      </label>
     </div>
 
     <div>

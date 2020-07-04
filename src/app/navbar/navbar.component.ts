@@ -29,7 +29,4 @@ export class NavbarComponent implements OnInit {
       this.isAuthenticated = value;
     });
   }
-  handleLogout() {
-    this.auth.logout();
-  }
 }

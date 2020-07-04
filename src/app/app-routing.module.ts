@@ -10,6 +10,9 @@ import { ViewArticlesComponent } from './category/view-articles/view-articles.co
 import { CategoriesComponent } from './category/categories/categories.component';
 import { ArticleEditComponent } from './article/edit/edit.component';
 import { CategoryEditComponent } from './category/category-edit/category-edit.component';
+import { UserShowComponent } from './user/user-show/user-show.component';
+import { UploadsComponent } from './upload/uploads/uploads.component';
+import { ContactComponent } from './contact/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,9 @@ const routes: Routes = [
   { path: 'category', component: CategoriesComponent },
   { path: 'category/edit/:id', component: CategoryEditComponent },
   { path: 'category/:id', component: ViewArticlesComponent },
+  { path: 'profil', component: UserShowComponent },
+  { path: 'uploads', component: UploadsComponent },
+  { path: 'contact', component: ContactComponent },
 ];
 
 @NgModule({

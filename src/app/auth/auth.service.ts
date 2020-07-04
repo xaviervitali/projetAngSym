@@ -12,6 +12,7 @@ import { User } from './user';
 export class AuthService {
   authChanged = new Subject<boolean>();
   user: User;
+  isModeratorOrAdmin = false;
   constructor(private http: HttpClient) {
     interval(5000).subscribe(() =>
       this.authChanged.next(this.isAuthenticated())
@@ -24,6 +25,11 @@ export class AuthService {
       return false;
     }
     const data: any = jwtDecode(token);
+
+    this.isModeratorOrAdmin =
+      data.roles.includes('ROLE_ADMIN') ||
+      data.roles.includes('ROLE_MODERATOR');
+
     this.user = data;
     return Date.now() < data.exp * 1000;
   }

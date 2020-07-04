@@ -9,6 +9,7 @@ import { Category } from '../../category/category';
 import { map, switchMap } from 'rxjs/operators';
 import { pipe, Observable } from 'rxjs';
 import { CategoryService } from 'src/app/category/category.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-edit',
@@ -31,7 +32,7 @@ export class ArticleEditComponent implements OnInit {
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private ui: UiService
+    public auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -42,9 +43,14 @@ export class ArticleEditComponent implements OnInit {
         map((params) => +params.get('id')),
         switchMap((id) => this.articleService.find(id)),
         map((article) => {
+          let id = null;
+          if (article.category) {
+            id = `/api/categories/${(article.category as Category).id}`;
+          }
           return {
             ...article,
-            category: `/api/categories/${(article.category as Category).id}`,
+
+            category: id,
           };
         })
       )

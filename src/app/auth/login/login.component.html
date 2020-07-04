@@ -1,11 +1,11 @@
-<div class="d-flex flex-column justify-content-center  align-items-around text-center " style="height:100vh">
+<div class="d-flex flex-column justify-content-center align-items-around text-center" style="height:100vh">
 
   <h1 class="mb-5">Connexion</h1>
   <div class="alert alert-danger" *ngIf="error">le compte n'est pas encore validé par un administrateur ou les données
     fournies sont erronnées
 
   </div>
-  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="container">
     <div class="form-group">
       <input type="email" class="form-control" placeholder="Adresse de connexion" formControlName="username"
         [class.is-invalid]="form.controls['username'].invalid&&submitted">

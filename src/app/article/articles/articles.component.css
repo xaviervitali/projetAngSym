@@ -1,7 +1,6 @@
-/* div div {
-  background-color: white;
-  opacity: 0.8;
+#main {
+  background-image: url("../../../assets/img/bg-article.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 2rem;
 }
-div div:hover {
-  opacity: 1;
-} */

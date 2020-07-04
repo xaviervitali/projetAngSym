@@ -1,36 +1,33 @@
-<div *ngIf="categories$">
+<h1>Modifier un Article</h1>
 
+<div *ngIf="article && (auth.isModeratorOrAdmin || auth.user.id===article.author.id)" id="main">
 
-    <h1>Modifier un Article</h1>
 
     <form [formGroup]=form (ngSubmit)='handleSubmit()'>
 
-        <button type="submit" class="btn btn-success">Enregistrer</button>
         <div class="form-group"><input type="text" class="form-control" formControlName="title"
                 placeholder="Titre de l'article" [class.is-invalid]="submitted&&form.controls['title'].invalid">
             <p class="invalid-feedback">
-                <!-- {{form.controls['title'].getError('invalid')}} -->
             </p>
         </div>
         <div class="form-group">
-            <!-- <textarea class="form-control" formControlName="content" placeholder="Lachez vous"
-                [class.is-invalid]="submitted&&form.controls['content'].invalid"></textarea> -->
+
             <p class="invalid-feedback">
-                <!-- {{form.controls['content'].getError('invalid')}} -->
             </p>
         </div>
         <select id="customer" class="form-control" formControlName="category"
             [class.is-invalid]="submitted&&form.controls['category'].hasError('required')">
-            <!-- <option value="">Veuillez choisir une catégorie</option> -->
             <option *ngFor="let c of categories$ | async" value="/api/categories/{{c.id}}">{{ c.title |uppercase }}
             </option>
 
         </select>
-        <editor class="form-control" formControlName="content" apiKey="jwifx6cyqjsshd8l1nxakb6hbbvlisgj6ngqgvw0aiyc15lr"
-            [init]="{
-      skin: 'borderless',
-      plugins: 'wordcount',
-      menubar: false
+        <editor *ngIf="auth.user.id===article.author.id" class="form-control" style="height:auto"
+            formControlName="content" apiKey="jwifx6cyqjsshd8l1nxakb6hbbvlisgj6ngqgvw0aiyc15lr" [init]="{
+                language: 'fr_FR',
+        skin: 'borderless',
+        plugins: 'wordcount',
+        menubar: false
     }"></editor>
+        <button type="submit" class="btn btn-success">Enregistrer</button>
     </form>
 </div>

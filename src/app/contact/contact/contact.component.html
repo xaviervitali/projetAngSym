@@ -1,0 +1,23 @@
+<h1 class="text-center mb-5">Nous contacter</h1>
+<div class="container" id="main">
+
+
+
+    <form [formGroup]=form (ngSubmit)='handleSubmit()'>
+
+        <div class="form-group "><input type="text" class="form-control" formControlName="title" placeholder="Sujet"
+                [class.is-invalid]="submitted&&form.controls['title'].invalid">
+            <p class="invalid-feedback">
+                {{form.controls['title'].getError('invalid')}}
+            </p>
+        </div>
+
+
+        <textarea class="form-control mb-2" placeholder="Vos questions ? Vos remarques ? ..."
+            formControlName="content"></textarea>
+        <button type="submit" class="btn btn-success    ">Envoyez</button>
+
+    </form>
+
+
+</div>

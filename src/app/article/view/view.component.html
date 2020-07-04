@@ -1,4 +1,4 @@
-<div *ngIf="article">
+<div *ngIf="article" id="main">
 
     <h1 class="text-center mb-5">{{article.title | uppercase}}</h1>
 
@@ -10,11 +10,11 @@
 
         <p [innerHTML]="article.content">
         </p>
-        <button class="btn btn-sm btn-danger"
-            *ngIf="auth.hasRole('ROLE_MODERATOR') || auth.hasRole('ROLE_ADMIN')|| auth.user.id===article.author.id"
+        <button class="btn btn-sm btn-danger" *ngIf="auth.isModeratorOrAdmin || auth.user.id===article.author.id"
             (click)="handleDelete()">Supprimer
             l'article</button>
-        <a class="btn btn-sm btn-primary" *ngIf="auth.user.id===article.author.id"
+
+        <a class="btn btn-sm btn-primary" *ngIf="auth.user.id===article.author.id || auth.isModeratorOrAdmin"
             routerLink="/article/edit/{{article.id}}">Modifier
             l'article</a>
         <a href=""></a>

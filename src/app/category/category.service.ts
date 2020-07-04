@@ -13,7 +13,7 @@ export class CategoryService {
   findAll() {
     return this.http
       .get<Category[]>(environment.apiUrl + '/categories')
-      .pipe(map((data) => data['hydra:member'] as Article[]));
+      .pipe(map((data) => data['hydra:member'] as Category[]));
   }
 
   find(id: any) {

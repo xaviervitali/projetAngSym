@@ -1,4 +1,4 @@
-<div *ngIf="categories">
+<div *ngIf="categories" class="container">
 
     <div class="border border-primary rounded p-3">
         <h1 class="text-center mb-5 ">
@@ -15,8 +15,7 @@
 
                     <th>Titre de la catégorie</th>
                     <th>Nombre d'articles liés</th>
-                    <th
-                        *ngIf="auth.hasRole('ROLE_ADMIN') || auth.hasRole('ROLE_MODERATOR') ||auth.hasRole('ROLE_WRITTER') ">
+                    <th *ngIf="auth.isModeratorOrAdmin">
                         Admministration</th>
 
                 </thead>
@@ -30,8 +29,7 @@
 
                         {{cat.articles.length}}
                     </td>
-                    <td
-                        *ngIf="auth.hasRole('ROLE_ADMIN') || auth.hasRole('ROLE_MODERATOR') ||auth.hasRole('ROLE_WRITTER') ">
+                    <td *ngIf="auth.isModeratorOrAdmin ">
 
                         <a routerLink="/category/edit/{{cat.id}}" class="btn btn-info btn-sm">modifier</a>
                         <button class="btn btn-danger btn-sm" (click)="handleDelete(cat.id)">Supprimer</button>
@@ -39,6 +37,17 @@
                 </tr>
 
             </table>
+            <hr>
+            <div *ngIf="auth.isModeratorOrAdmin">
+
+                <h4>Ajouter une catégorie</h4>
+                <form [formGroup]="form" (ngSubmit)='handleSubmit()'>
+
+                    <input type="text" class="form-control mb-2 " formControlName="title"
+                        placeholder="Nom de la catégorie">
+                    <button class="btn btn-success">Valider</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

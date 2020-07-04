@@ -7,4 +7,5 @@ export interface User {
   children: [string];
   emailNotification: boolean;
   id?: number;
+  roles: [string];
 }

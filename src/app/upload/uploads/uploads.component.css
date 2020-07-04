@@ -1,0 +1,12 @@
+img {
+  max-width: 400px;
+  padding: 1rem;
+}
+
+.d-flex {
+  background-image: url("../../../assets/img/bg-download.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 2rem;
+  background-position: center;
+}

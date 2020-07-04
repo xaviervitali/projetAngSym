@@ -3,8 +3,11 @@ img {
 }
 
 i {
-  font-size: 2rem;
+  font-size: 1rem;
 }
 li {
   margin-right: 0.5rem;
+}
+.navbar-dark .navbar-brand {
+  width: 200px;
 }

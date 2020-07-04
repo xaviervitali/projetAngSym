@@ -1,0 +1,9 @@
+#main {
+  background-image: url("../../../assets/img/bg-article-create.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 2rem;
+  font-size: 1.5rem;
+  background-position: center;
+  height: 60vh;
+}

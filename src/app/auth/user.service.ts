@@ -13,4 +13,8 @@ export class UserService {
   create(user: User) {
     return this.http.post<User>(environment.apiUrl + '/users', user);
   }
+
+  update(user: User) {
+    return this.http.put<User>(environment.apiUrl + '/users/' + user.id, user);
+  }
 }

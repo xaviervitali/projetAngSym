@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '../category';
 import { CategoryService } from '../category.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-categories',
@@ -10,6 +11,9 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[];
+  form = new FormGroup({
+    title: new FormControl(''),
+  });
   constructor(
     private categoryService: CategoryService,
     public auth: AuthService
@@ -21,9 +25,25 @@ export class CategoriesComponent implements OnInit {
 
   handleDelete(id) {
     const categoriesCopy = { ...this.categories };
+    this.categories.splice(
+      this.categories.findIndex((cat) => cat.id === id),
+      1
+    );
+
     this.categoryService.delete(id).subscribe(
       () => '',
       () => (this.categories = categoriesCopy)
+    );
+  }
+  handleSubmit() {
+    const catCopy = { ...this.categories };
+    this.categoryService.create(this.form.value).subscribe(
+      (category) => {
+        this.categories.push(category);
+      },
+      (e) => {
+        this.categories = catCopy;
+      }
     );
   }
 }
