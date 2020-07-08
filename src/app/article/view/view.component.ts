@@ -45,7 +45,7 @@ export class ArticleViewComponent implements OnInit {
 
   handleDelete() {
     this.articleService.delete(this.article.id).subscribe(() => {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/articles');
     });
   }
   handleSubmitComment() {

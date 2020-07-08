@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UserShowComponent implements OnInit {
   classesSelected = [];
   classes = ['PS', 'MS', 'GS', 'CP', 'CP/CE1', 'CE1', 'CE2', 'CM1', 'CM2'];
-
+  updated = false;
   @Input()
   password: string;
 
@@ -51,7 +51,9 @@ export class UserShowComponent implements OnInit {
           email: this.form.controls.username.value,
         })
         .subscribe(
-          (user) => {},
+          (user) => {
+            this.updated = true;
+          },
           (e: HttpErrorResponse) => {
             if (e.status === 400 && e.error.violations) {
               for (let violation of e.error.violations) {
@@ -87,12 +89,14 @@ export class UserShowComponent implements OnInit {
 
   translateRole(role) {
     const roles = {
-      ROLE_ADMIN: `Administrateur du site : En tant que tel vous pouvez acceder à la page d'administation, supprimer un article, bloquer des commentaires, modifier la catégorie d'un article, et en créer `,
-      ROLE_MODERATOR: `Modérateur : En tant que tel supprimer un article, bloquer des commentaires, modifier la catégorie d'un article, en créer  et en supprimer`,
+      ROLE_ADMIN: `Vous pouvez acceder à la page d'administation, supprimer un article, bloquer des commentaires, modifier la catégorie d'un article, et en créer de nouvelles`,
+      ROLE_MODERATOR: `Vous pouvez supprimer un article, bloquer des commentaires, modifier la catégorie d'un article, en créer et en supprimer`,
       ROLE_WRITTER:
-        "Auteur d'articles : En tant que tel vous pouvez créer des articles,  modifier l'intégralité de vos articles et bloquer les commentaires liés ",
-      ROLE_USER: 'Vous pouvez consulter tous les articles et les commenter',
-      ROLE_SCHOOL: 'Vous pouvez consulter tous les articles',
+        "Vous pouvez créer des articles,  modifier l'intégralité de vos articles et bloquer les commentaires liés",
+      ROLE_USER:
+        'Vous pouvez consulter toutes les catégories, tous les articles et les commenter',
+      ROLE_SCHOOL:
+        'Vous pouvez consulter tous les articles et  toutes les catégories',
     };
     return roles[role];
   }

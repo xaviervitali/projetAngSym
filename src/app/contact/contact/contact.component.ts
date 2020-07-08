@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { AsyncSubject, Subject } from 'rxjs';
-import { CategoryService } from 'src/app/category/category.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,7 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent implements OnInit {
-  private editorSubject: Subject<any> = new AsyncSubject();
+  sent: boolean;
   form = new FormGroup({
     title: new FormControl('', Validators.required),
     content: new FormControl('', Validators.required),
@@ -25,22 +23,31 @@ export class ContactComponent implements OnInit {
 
   handleSubmit() {
     this.submitted = true;
+    console.log(this.form.value);
+
     if (this.form.invalid) {
       return;
     }
-    this.http.post(environment.apiUrl + '/contacts', this.form.value).subscribe(
-      () => {
-        // this.router.navigateByUrl('/');
-      },
-      (e: HttpErrorResponse) => {
-        if (e.status === 400 && e.error.violations) {
-          for (const violation of e.error.violations) {
-            const nomDuChamp = violation.propertyPath;
-            const msg = violation.message;
-            this.form.controls[nomDuChamp].setErrors({ invalid: msg });
+    this.http
+      .post(environment.apiUrl + '/contacts', {
+        ...this.form.value,
+        receiver: 'api/users/132',
+      })
+      .subscribe(
+        () => {
+          // this.router.navigateByUrl('/');
+          this.sent = true;
+        },
+        (e: HttpErrorResponse) => {
+          if (e.status === 400 && e.error.violations) {
+            for (const violation of e.error.violations) {
+              const nomDuChamp = violation.propertyPath;
+              const msg = violation.message;
+              this.form.controls[nomDuChamp].setErrors({ invalid: msg });
+              this.sent = false;
+            }
           }
         }
-      }
-    );
+      );
   }
 }

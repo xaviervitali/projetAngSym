@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AsyncSubject, Subject } from 'rxjs';
 import { CategoryService } from 'src/app/category/category.service';
+import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-article-create',
   templateUrl: './article-create.component.html',
@@ -19,11 +20,12 @@ export class ArticleCreateComponent implements OnInit {
   });
   submitted = false;
   categories = [];
-
+  titre = 'Nouveau titre';
   constructor(
     private articleService: ArticleService,
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    public auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class ArticleCreateComponent implements OnInit {
     }
     this.articleService.create(this.form.value).subscribe(
       () => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/articles');
       },
       (e: HttpErrorResponse) => {
         if (e.status === 400 && e.error.violations) {

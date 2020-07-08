@@ -1,24 +1,39 @@
-<h1 class="text-center mb-5">Ajouter un Article</h1>
-<div *ngIf="categories" class="container-fluid" id="main">
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('assets/own-img/bg-article-create.jpg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>Nouvel Article</h1>
+          <span class="subheading">{{form.controls.title.value}}</span>
+          <span class="meta">De {{auth.user.firstName}} {{auth.user.lastName}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div *ngIf="categories" class="container" id="main">
 
 
 
   <form [formGroup]=form (ngSubmit)='handleSubmit()'>
 
-    <div class="form-group "><input type="text" class="form-control" formControlName="title"
-        placeholder="Titre de l'article" [class.is-invalid]="submitted&&form.controls['title'].invalid">
+    <div class="form-group  floating-label-form-group controls"><input type="text" class="form-control"
+        formControlName="title" placeholder="Titre de l'article"
+        [class.is-invalid]="submitted&&form.controls['title'].invalid">
       <p class="invalid-feedback">
         {{form.controls['title'].getError('invalid')}}
       </p>
     </div>
-    <select class="form-control " formControlName="category"
+    <select class="form-control  floating-label-form-group controls my-2" formControlName="category"
       [class.is-invalid]="submitted&&form.controls['category'].hasError('required')">
       <option value="">Veuillez choisir une catégorie</option>
       <option *ngFor="let c of categories" value="/api/categories/{{c.id}}">{{ c.title |uppercase }}</option>
 
     </select>
 
-    <editor style="height:auto" class="form-control" formControlName="content"
+    <editor style="height:auto" class="form-control my-2 floating-label-form-group controls" formControlName="content"
       apiKey="jwifx6cyqjsshd8l1nxakb6hbbvlisgj6ngqgvw0aiyc15lr" [init]="{
 
     skin: 'borderless',

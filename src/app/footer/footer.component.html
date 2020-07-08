@@ -1,0 +1,55 @@
+<footer *ngIf="auth.isAuthenticated()">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a routerLink="/profil">
+                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top"
+                                title="Acceder à votre profil">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-user fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a routerLink="/contact">
+                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top" title="Nous ecrire">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope   fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item" *ngIf="auth.hasRole('ROLE_ADMIN')">
+                        <a href="http://localhost:3000/admin" target="_blank">
+                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top"
+                                title="Aller sur l'espace d'administration">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-users-cog fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item" *ngIf="auth.hasRole('ROLE_WRITTER') || auth.isModeratorOrAdmin">
+                        <a routerLink="/dashboard">
+                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top"
+                                title="Voir les commentaires bloqués">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-comments fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.apel.fr/" target="_blank">
+                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top"
+                                title="Aller sur le site national de l'APEL">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-link fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; APEL STDA 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>

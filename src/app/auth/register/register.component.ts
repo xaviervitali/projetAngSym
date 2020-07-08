@@ -51,20 +51,24 @@ export class RegisterComponent implements OnInit {
 
     if (!this.form.invalid) {
       this.userService
-        .create({ ...this.form.value, children: this.classesSelected })
+        .create({
+          ...this.form.value,
+          children: this.classesSelected,
+          granted: false,
+        })
         .subscribe(
           (user) => {
             this.router.navigateByUrl('/login');
           },
           (e: HttpErrorResponse) => {
             if (e.status === 400 && e.error.violations) {
-              for (let violation of e.error.violations) {
-                const nomDuChamp = violation.propertyPath;
-                const message = violation.message;
-                this.form.controls[nomDuChamp].setErrors({ invalid: message });
-                this.loading = false;
-                this.error = false;
-              }
+              // for (let violation of e.error.violations) {
+              //   const nomDuChamp = violation.propertyPath;
+              //   const message = violation.message;
+              //   this.form.controls[nomDuChamp].setErrors({ invalid: message });
+              //   this.loading = false;
+              //   this.error = false;
+              // }
 
               return;
             }
@@ -86,7 +90,7 @@ export class RegisterComponent implements OnInit {
     );
   }
   handleChange(classe: any) {
-    const classeSelectionnee = classe.target.value;
+    const classeSelectionnee = classe;
 
     if (this.classesSelected.includes(classeSelectionnee)) {
       const index = this.classesSelected.findIndex(

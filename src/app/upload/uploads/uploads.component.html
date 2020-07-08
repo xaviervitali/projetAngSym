@@ -1,31 +1,111 @@
-<h1 class="text-center mb-5">
-    Liste des fichiers Téléchargeables
-</h1>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('assets/own-img/bg-download.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>les téléchargements</h1>
+                    <!-- <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 
 <div *ngIf="noUpload">
     <p>Pas de téléchargement a ce jour ...</p>
 </div>
 
-<div class="d-flex flex-wrap justify-content-around align-items-end" *ngIf="uploads.length> 0">
 
-    <div class="card m-3" style="width: 18rem;" *ngFor="let up of uploads">
-        <a *ngIf="isImage(up.fileUploadedName)" href="http://localhost:3000/assets/files/{{up.fileUploadedName}}"
-            target="_blank"> <img class="card-img-top" src="http://localhost:3000/assets/files/{{up.fileUploadedName}}"
-                alt="{{up.fileUploadedName}}"></a>
-        <div class="card-body">
-            <h5 class="card-title">{{up.title}}</h5>
-            <p class="card-text">Mis en ligne le {{up.updatedAt | date:"d/M/y à H:m"}}</p>
-            <p>
-                <a href="http://localhost:3000/assets/files/{{up.fileUploadedName}}" target="_blank">
-                    Telecharcher le ficher
-                </a>
-            </p>
-            <!-- <p class="card-text">par {{up.addedBy.firstName }} {{up.addedBy.lastName | slice(0,1)}}.</p>    -->
 
+<div class="row" *ngFor="let up of uploads">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview d-flex justify-content-around">
+
+            <a href="http://localhost:3000/assets/files/{{up.fileUploadedName}}" target="_blank">
+                <img *ngIf=" !isVideo(up.fileUploadedName) &&!isImage(up.fileUploadedName)" class=" m-1"
+                    src="../../../assets/own-img/fichier-prospection-95.jpg" style="max-width: 250px;"
+                    alt="{{up.fileUploadedName}}">
+
+
+                <img *ngIf="isImage(up.fileUploadedName)" class=" m-1" style="max-width: 250px;"
+                    src="http://localhost:3000/assets/files/{{up.fileUploadedName}}" alt="{{up.fileUploadedName}}">
+
+
+                <video *ngIf="isVideo(up.fileUploadedName)" controls width="250" autoplay class="m-1">
+
+                    <source src="http://localhost:3000/assets/files/{{up.fileUploadedName}}" type="video/webm">
+
+                    Désolé votre navigateur ne supporte pas ce format de vidéo
+                </video>
+                <p class="post-meta">
+                    {{getFileName(up.fileUploadedName)}}
+                </p>
+            </a>
+            <h3>
+
+                {{up.title}}
+                <!-- </span> -->
+            </h3>
+            <p>Posté par
+                <strong>
+
+                    {{up.addedBy.firstName}} {{up.addedBy.lastName}} </strong>
+                le {{up.updatedAt|date:'d MMM y à HH:mm'}}</p>
+            <!-- <h2 class=" post-title">
+                {{a.title |uppercase}}
+            </h2>
+            <h3 class="post-subtitle">
+                <span *ngIf=" !auth.hasRole('ROLE_SCHOOL')">{{a.comments.length}}
+                    Commentaire(s)</span>
+            </h3>
+            </a>
+            <h3 class="post-subtitle" *ngIf="a.category">
+                <a routerLink="/categorie/{{a.category.id}}"> Dans la catégorie {{a.category.title}}</a>
+            </h3>
+            <p class="post-meta">Posté par
+                <strong>
+
+                    {{a.author.firstName}} {{a.author.lastName}} </strong>
+                le {{a.createdAt|date:'d MMM y à HH:mm'}} <span *ngIf="a.updatedAt">(mise à jour le
+                    {{a.updatedAt|date:'d/M/y à HH:mm'}})</span> </p> -->
         </div>
+        <hr>
+        <!-- <div class="d-flex flex-wrap justify-content-around align-items-strech" *ngIf="uploads.length> 0">
+
+            <div class="card m-3" style="width: 18rem;" *ngFor="let up of uploads">
+                <a *ngIf="!isVideo(up.fileUploadedName) &&!isImage(up.fileUploadedName)"><img class=""m-1"
+                        src="../../../assets/own-img/logo_document_financier.svg" style="max-height: 200px;"
+                        alt="{{up.fileUploadedName}}"></a>
+                <a *ngIf="isImage(up.fileUploadedName)"
+                    href="http://localhost:3000/assets/files/{{up.fileUploadedName}}" target="_blank"> <img
+                        class="card-img-top m-1" src="http://localhost:3000/assets/files/{{up.fileUploadedName}}"
+                        alt="{{up.fileUploadedName}}"></a>
+
+                <a *ngIf="isVideo(up.fileUploadedName)"
+                    href="http://localhost:3000/assets/files/{{up.fileUploadedName}}" target="_blank"
+                    class="text-center">
+                    <video controls width="250" autoplay class="m-1">
+
+                        <source src="http://localhost:3000/assets/files/{{up.fileUploadedName}}" type="video/webm">
+
+
+                        Sorry, your browser doesn't support embedded videos.
+                    </video>
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{up.title}}</h5>
+                    <p class="card-text">Mis en ligne le {{up.updatedAt | date:"d/M/y à H:m"}}</p>
+
+                    <p class="card-text">par {{up.addedBy.firstName}} {{up.addedBy.lastName}}.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="spinner-border text-primary" role="status" *ngIf="loading">
+            <span class="sr-only">Loading...</span>
+        </div> -->
     </div>
-</div>
-<div class="spinner-border text-primary" role="status" *ngIf="loading">
-    <span class="sr-only">Loading...</span>
 </div>

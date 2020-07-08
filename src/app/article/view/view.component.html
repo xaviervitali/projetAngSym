@@ -1,71 +1,99 @@
-<div *ngIf="article" id="main">
+<!-- Page Header -->
+<header class="masthead"
+    style="background-image: url('assets/own-img/persons-hand-on-black-and-white-braille-machine-3945363.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h2>{{article.title | uppercase}}</h2>
+                    <span class="subheading">{{article.author.firstName}} {{article.author.lastName}}</span>
 
-    <h1 class="text-center mb-5">{{article.title | uppercase}}</h1>
-
-    <div class=" mb-5">
-
-        <p class=" mb-2">De <strong>{{article.author.firstName}} {{article.author.lastName | slice:0:1}}.</strong> le
-            {{article.updatedAt | date:("dd/MM/yyyy")}}
-        </p>
-
-        <p [innerHTML]="article.content">
-        </p>
-        <button class="btn btn-sm btn-danger" *ngIf="auth.isModeratorOrAdmin || auth.user.id===article.author.id"
-            (click)="handleDelete()">Supprimer
-            l'article</button>
-
-        <a class="btn btn-sm btn-primary" *ngIf="auth.user.id===article.author.id || auth.isModeratorOrAdmin"
-            routerLink="/article/edit/{{article.id}}">Modifier
-            l'article</a>
-        <a href=""></a>
-        <hr>
-    </div>
-
-    <div *ngIf=" !auth.hasRole('ROLE_SCHOOL')">
-        <h3 class="mb-5 text-center">Commentaires</h3>
-        <div *ngFor="let c of comments" class="mb-5x² p-3">
-            <div *ngIf="!c.blocked">
-
-                <p>De <strong>{{c.author.firstName}} {{c.author.lastName | slice:0:1}}.</strong> le
-                    {{c.createdAt | date:("dd/MM/yyyy à HH:mm")}} </p>
-                <p class="ml-2">{{c.content }}</p>
-                <button class="btn btn-sm btn-danger"
-                    *ngIf="auth.hasRole('ROLE_MODERATOR') || auth.hasRole('ROLE_ADMIN')|| (auth.user.id===article.author.id&&auth.user.id!==c.author.id)"
-                    (click)="handleBlockComment(c)">Bloquer
-                    le
-                    commentaire</button>
-                <button class="btn btn-sm btn-primary" *ngIf="auth.user.id===c.author.id"
-                    (click)="handleDeleteComment(c)">Supprimer le commentaire</button>
+                    <p class="meta"> le
+                        {{article.updatedAt | date:("dd/MM/yyyy")}}
+                    </p>
+                </div>
             </div>
-
-
-            <div *ngIf="c.blocked">
-
-                <p>De <strong>*************</strong> le
-                    *********** </p>
-                <p class="ml-2">
-                    <strong>
-                        Contenu Bloqué
-                    </strong>
-                </p>
-
-            </div>
-
         </div>
-        <hr>
-        <h3>Réagir</h3>
-        <form [formGroup]=form (ngSubmit)='handleSubmitComment()'>
-
-            <div class="form-group"><input type="text" class="form-control" formControlName="content"
-                    placeholder="Votre reaction" [class.is-invalid]="submitted&&form.controls['content'].invalid">
-                <p class="invalid-feedback">
-                    {{form.controls['content'].getError('invalid')}}
-                </p>
-            </div>
-            <button type="submit">Valider</button>
-        </form>
     </div>
-</div>
+</header>
 <div class="spinner-border text-primary" role="status" *ngIf="!article">
     <span class="sr-only">Loading...</span>
 </div>
+
+<article *ngIf="article">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto post-preview">
+
+
+
+                <p [innerHTML]="article.content">
+                </p>
+                <button class="btn btn-sm text-danger"
+                    *ngIf="auth.isModeratorOrAdmin || auth.user.id===article.author.id"
+                    (click)="handleDelete()">Supprimer
+                    l'article</button>
+
+                <a class="btn btn-sm text-primary" *ngIf="auth.user.id===article.author.id || auth.isModeratorOrAdmin"
+                    routerLink="/article/edit/{{article.id}}">Modifier
+                    l'article</a>
+                <a href=""></a>
+                <hr>
+            </div>
+        </div>
+        <div>
+            <div class="row" *ngIf=" !auth.hasRole('ROLE_SCHOOL')">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h3 class="mb-5 text-center">Commentaires</h3>
+                    <div *ngFor="let c of comments" class="mb-5x² p-3">
+                        <div *ngIf="!c.blocked">
+
+                            <p>De <strong>{{c.author.firstName}} {{c.author.lastName | slice:0:1}}.</strong> le
+                                {{c.createdAt | date:("dd/MM/yyyy à HH:mm")}} </p>
+                            <p class="ml-2">{{c.content }}</p>
+                            <button class="btn btn-sm text-danger"
+                                *ngIf="auth.hasRole('ROLE_MODERATOR') || auth.hasRole('ROLE_ADMIN')|| (auth.user.id===article.author.id&&auth.user.id!==c.author.id)"
+                                (click)="handleBlockComment(c)">Bloquer
+                                le
+                                commentaire</button>
+                            <button class="btn btn-sm text-primary" *ngIf="auth.user.id===c.author.id"
+                                (click)="handleDeleteComment(c)">Supprimer le commentaire</button>
+                            <hr>
+
+                        </div>
+
+
+                        <div *ngIf="c.blocked">
+
+                            <p>De <strong>*************</strong> le
+                                *********** </p>
+                            <p class="ml-2">
+                                <strong>
+                                    Contenu Bloqué
+                                </strong>
+                            </p>
+                            <hr>
+
+                        </div>
+
+                    </div>
+                    <hr>
+                    <h3>Réagir</h3>
+                    <form [formGroup]=form (ngSubmit)='handleSubmitComment()'>
+
+                        <div class="form-group"><input type="text" class="form-control" formControlName="content"
+                                placeholder="Votre reaction"
+                                [class.is-invalid]="submitted&&form.controls['content'].invalid">
+                            <p class="invalid-feedback">
+                                {{form.controls['content'].getError('invalid')}}
+                            </p>
+                        </div>
+                        <button class="btn text-success" type="submit">Valider</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</article>

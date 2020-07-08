@@ -1,12 +1,32 @@
-<h1>Modifier un Article</h1>
+<!-- Page Header -->
+<header class="masthead"
+    style="background-image: url('assets/own-img/person-holding-blue-ballpoint-pen-writing-in-notebook-210661.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h2>Modifier l'article</h2>
+                    <span class="subheading">{{article.title}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<div *ngIf="article && (auth.isModeratorOrAdmin || auth.user.id===article.author.id)" id="main">
+<ng-template #admin>
+
+    <blockquote>Seul l'auteur de l'article peut modifier son contenu</blockquote>
+</ng-template>
+<div *ngIf="article && (auth.isModeratorOrAdmin || auth.user.id===article.author.id)" class="container">
 
 
     <form [formGroup]=form (ngSubmit)='handleSubmit()'>
 
-        <div class="form-group"><input type="text" class="form-control" formControlName="title"
-                placeholder="Titre de l'article" [class.is-invalid]="submitted&&form.controls['title'].invalid">
+        <div class="form-group">
+            <label for="">Nouveau titre</label>
+            <input type="text" class="form-control" formControlName="title" placeholder="Titre de l'article"
+                [class.is-invalid]="submitted&&form.controls['title'].invalid">
             <p class="invalid-feedback">
             </p>
         </div>
@@ -21,7 +41,7 @@
             </option>
 
         </select>
-        <editor *ngIf="auth.user.id===article.author.id" class="form-control" style="height:auto"
+        <editor *ngIf="auth.user.id===article.author.id;else admin" class="form-control" style="height:auto"
             formControlName="content" apiKey="jwifx6cyqjsshd8l1nxakb6hbbvlisgj6ngqgvw0aiyc15lr" [init]="{
                 language: 'fr_FR',
         skin: 'borderless',

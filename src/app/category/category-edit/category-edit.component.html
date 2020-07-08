@@ -1,9 +1,27 @@
-<h1 class="text-center mb-5">Modifier le titre d'une catégorie</h1>
+<!-- Page Header -->
+<header class="masthead"
+    style="background-image: url('assets/own-img/person-holding-blue-ballpoint-pen-writing-in-notebook-210661.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h2>Modifier la catégorie</h2>
+                    <span class="subheading">{{category.title}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <form [formGroup]="form" (ngSubmit)='handleSubmit()' class="container">
-
-    <div class="form-group">
-        <input type="text" class="form-control" formControlName="title">
+    <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="title">
+            </div>
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+        </div>
     </div>
-    <button type="submit" class="btn btn-success">Enregistrer</button>
+
 </form>

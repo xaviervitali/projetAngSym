@@ -10,9 +10,19 @@ import { CategoryModule } from './category/categrory.module';
 import { UserModule } from './user/user.module';
 import { UploadsComponent } from './upload/uploads/uploads.component';
 import { ContactComponent } from './contact/contact/contact.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommentsComponent } from './comment/comments/comments.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, UploadsComponent, ContactComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    UploadsComponent,
+    ContactComponent,
+    CommentsComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,6 +31,7 @@ import { ContactComponent } from './contact/contact/contact.component';
     EditorModule,
     CategoryModule,
     UserModule,
+    ReactiveFormsModule,
   ],
 
   bootstrap: [AppComponent],

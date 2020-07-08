@@ -1,0 +1,51 @@
+<header class="masthead" style="background-image: url('assets/own-img/police-fun-funny-uniform-33598.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h1>Commentaires bloqués</h1>
+                    <!-- <h2>{{article.title | uppercase}}</h2>
+                    <span class="subheading">{{article.author.firstName}} {{article.author.lastName}}</span>
+
+                    <p class="meta"> le
+                        {{article.updatedAt | date:("dd/MM/yyyy")}}
+                    </p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+
+
+    <table class="table">
+
+        <thead>
+
+            <th class="post-preview">
+                Commentaire de</th>
+            <th class="post-preview text-center">
+                Article concerné</th>
+            <th class="post-preview text-center">
+                Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bc of blockedComments">
+                <td>{{bc.author.firstName}} {{bc.author.lastName}}</td>
+                <td><a routerLink="/article/{{bc.article.id}}"> {{bc.article.title}}</a></td>
+                <td>
+                    <button class="btn btn-sm text-success" (click)="handleUnblock(bc.id)">débloquer </button>
+                    <button class="btn btn-sm text-danger" *ngIf="auth.isModeratorOrAdmin"
+                        (click)="handleDelete(bc.id)">supprimer
+                    </button>
+
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -66,7 +66,7 @@ export class ArticleEditComponent implements OnInit {
       .update({ ...this.form.value, id: this.article.id })
       .subscribe(
         (article) => {
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/articles');
         },
         (e: HttpErrorResponse) => {}
       );

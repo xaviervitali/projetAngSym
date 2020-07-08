@@ -31,4 +31,30 @@ export class UploadsComponent implements OnInit {
 
     return imageExtension.includes(extension);
   }
+
+  isVideo(file: any) {
+    const videoExtension = ['mp4', 'mov', 'avi'];
+    const reverse = file.split('').reverse().join('');
+
+    const extension = reverse
+      .slice(0, reverse.indexOf('.'))
+      .split('')
+      .reverse()
+      .join('');
+
+    return videoExtension.includes(extension);
+  }
+
+  getFileName(file: any) {
+    const reverse = file.split('').reverse().join('');
+    const extension = reverse
+      .slice(0, reverse.indexOf('.'))
+      .split('')
+      .reverse()
+      .join('');
+
+    const originalFileName = file.slice(0, file.indexOf('-'));
+
+    return originalFileName + '.' + extension;
+  }
 }

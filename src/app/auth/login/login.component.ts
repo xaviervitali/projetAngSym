@@ -30,17 +30,14 @@ export class LoginComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.ui.setloading(true);
     this.authService.authenticate(this.form.value).subscribe(
       (token) => {
         this.error = false;
-        this.ui.setloading(false);
-        this.route.navigateByUrl('/');
+        this.route.navigateByUrl('/articles');
       },
       (e) => {
         console.log(e);
         this.error = true;
-        this.ui.setloading(false);
       }
     );
   }

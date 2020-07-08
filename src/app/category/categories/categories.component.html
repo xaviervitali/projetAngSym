@@ -1,56 +1,82 @@
-<div *ngIf="categories" class="container">
-
-    <div class="border border-primary rounded p-3">
-        <h1 class="text-center mb-5 ">
-            Liste des catégories
-        </h1>
-
-        <div class=" text-center">
-            <div class="spinner-border text-primary" role="status" *ngIf="!categories">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <table class="table">
-
-                <thead>
-
-                    <th>Titre de la catégorie</th>
-                    <th>Nombre d'articles liés</th>
-                    <th *ngIf="auth.isModeratorOrAdmin">
-                        Admministration</th>
-
-                </thead>
-                <tr *ngFor="let cat of categories">
-
-                    <td>
-
-                        <a routerLink="/category/{{cat.id}}"><strong>{{cat.title |uppercase}}</strong></a>
-                    </td>
-                    <td>
-
-                        {{cat.articles.length}}
-                    </td>
-                    <td *ngIf="auth.isModeratorOrAdmin ">
-
-                        <a routerLink="/category/edit/{{cat.id}}" class="btn btn-info btn-sm">modifier</a>
-                        <button class="btn btn-danger btn-sm" (click)="handleDelete(cat.id)">Supprimer</button>
-                    </td>
-                </tr>
-
-            </table>
-            <hr>
-            <div *ngIf="auth.isModeratorOrAdmin">
-
-                <h4>Ajouter une catégorie</h4>
-                <form [formGroup]="form" (ngSubmit)='handleSubmit()'>
-
-                    <input type="text" class="form-control mb-2 " formControlName="title"
-                        placeholder="Nom de la catégorie">
-                    <button class="btn btn-success">Valider</button>
-                </form>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('assets/own-img/art-artistic-bright-color-220320.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Les catégories</h1>
+                    <!-- <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
+                </div>
             </div>
         </div>
     </div>
+</header>
+
+
+<div *ngIf="categories" class="container">
+
+
+
+    <div>
+        <div class="spinner-border text-primary" role="status" *ngIf="!categories">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <table class="table ">
+
+            <thead class="text-center">
+
+                <th class="post-preview">
+                    <h5>Nom de la catégorie</h5>
+                </th>
+                <th>
+                    <h5>
+
+                        Nombre d'articles liés
+                    </h5>
+                </th>
+                <th *ngIf="auth.isModeratorOrAdmin">
+                    <h5 class="text-center">
+
+
+                        Administration</h5>
+                </th>
+
+            </thead>
+            <tr *ngFor="let cat of categories">
+
+                <td>
+
+                    <a routerLink="/categorie/{{cat.id}}"><strong>{{cat.title }}</strong></a>
+                </td>
+                <td class="text-center">
+
+                    {{cat.articles.length}}
+                </td>
+                <td *ngIf="auth.isModeratorOrAdmin ">
+
+                    <a routerLink="/categorie/edition//{{cat.id}}" class="btn text-primary btn-sm">modifier</a>
+                    <button class="btn text-danger btn-sm" (click)="handleDelete(cat.id)">Supprimer</button>
+                </td>
+            </tr>
+
+        </table>
+        <hr>
+        <div *ngIf="auth.isModeratorOrAdmin">
+
+            <h4 class="m-3">Ajouter une catégorie</h4>
+            <form [formGroup]="form" (ngSubmit)='handleSubmit()'>
+                <div class="control-group mb-2">
+                    <div class="form-group floating-label-form-group controls">
+                        <input type="text" class="form-control " formControlName="title"
+                            placeholder="Nom de la catégorie">
+                    </div>
+                </div>
+                <button class="btn btn-success">Valider</button>
+            </form>
+        </div>
+    </div>
 </div>
-<div class="spinner-border text-primary" role="status" *ngIf="!categories">
+<div class="spinner-border text-primary " role="status" *ngIf="!categories">
     <span class="sr-only">Loading...</span>
 </div>

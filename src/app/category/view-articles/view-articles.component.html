@@ -1,24 +1,73 @@
-<div *ngIf="articles">
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('assets/own-img/art-artistic-bright-color-220320.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Catégorie</h1>
+                    <span class="subheading">"{{articles[0].category.title}}"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 
-    <div class="text-center m-5">
 
-        <p>Dans la Catégorie</p>
-        <h1> "{{articles[0].category.title}}"</h1>
+<div class="container">
+    <div class="row" *ngFor="let a of articles">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-preview">
+                <a href="/article/{{a.id}}">
+                    <h2 class="post-title">
+                        {{a.title}}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        <span *ngIf=" !auth.hasRole('ROLE_SCHOOL')">{{a.comments.length}}
+                            Commentaire(s)</span>
+                    </h3>
+                </a>
+
+                <p class="post-meta">Posté par
+                    <strong>
+
+                        {{a.author.firstName}} {{a.author.lastName}} </strong>
+                    le {{a.createdAt|date:'d MMM y à HH:mm'}} <span *ngIf="a.updatedAt">(mise à jour le
+                        {{a.updatedAt|date:'d/M/y à HH:mm'}})</span> </p>
+            </div>
+            <p class="post-subtitle" *ngIf="a.category">
+                <a routerLink="/categorie/{{a.category.id}}"> Dans la catégorie {{a.category.title}}</a>
+            </p>
+            <hr>
+            <!-- <div class="d-flex justify-content-around  flex-wrap"> -->
+
+            <!-- <div class="card m-3 col-lg-2 col-md-5 col-sm-12" *ngFor="let a of getArticlesFromCurrentPage()">
+
+      <div class="card-body text-center">
+        <h5 class="card-title">{{a.title |uppercase}}</h5>
+        <p class="card-text" *ngIf=" !auth.hasRole('ROLE_SCHOOL')">({{a.comments.length}}
+          Commentaire(s))</p>
+        <p class="card-text" *ngIf="a.category">Dans la catégorie <strong>{{a.category.title }}</strong></p>
+        <p class="card-text">Le </p>
+        <p class="card-text">Mis à jour {{a.updatedAt|date:'d/M/y à HH:mm'}}</p>
+        <a routerLink="/article/{{a.id}}" class="btn btn-primary">Voir l'article</a>
+      </div> -->
+
+        </div>
 
     </div>
+    <!-- <div *ngFor="let a of getArticlesFromCurrentPage()" class="border border-primary rounded p-3 m-2">
+      <a routerLink="/article/{{a.id}}">
+        <h4>{{a.title |uppercase}} <small *ngIf=" !auth.hasRole('ROLE_SCHOOL')">({{a.comments.length}}
+            Commentaire(s))</small></h4>
+      </a>
 
-    <div *ngFor="let a of articles" class="border border-primary rounded p-3 m-2">
-        <a routerLink="/article/{{a.id}}">
-            <h4>{{a.title |uppercase}}</h4>
-        </a>
+      <div class="p-2">
 
+        <p *ngIf="a.category">Dans la catégorie <strong>{{a.category.title }}</strong></p>
+        <p>Le {{a.createdAt|date:'d/M/y à HH:mm'}}
 
-    </div>
-</div>
-
-<div *ngIf="!articles">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
+        <p *ngIf="a.updatedAt!=a.createdAt">Mis à jour {{a.updatedAt|date:'d/M/y à HH:mm'}}</p>
+      </div>
+    </div> -->

@@ -1,114 +1,183 @@
-<div class="d-flex flex-column justify-content-center  align-items-between text-center" id="main" style="height:100vh">
-  <h1 class="mb-5">S'inscrire</h1>
+<header class="masthead" style="background-image: url('../../../assets/own-img/bg-register.jpg');  ">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Inscription</h1>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<div class="d-flex flex-column justify-content-center  align-items-between text-center px-5" id="main">
+
   <form [formGroup]="form" (submit)="handleSubmit()">
-    <div class="form-check-inline" *ngFor=" let g of gender">
-      <input formControlName="gender" class="form-check-input" type="radio" [value]="g" (click)="handleGender(g)"
-        [class.is-invalid]="hasErrors('gender')||getErrorForControl('gender')">
-      <p class="invalid-feedback" *ngIf="getErrorForControl('gender')">
-        {{getErrorForControl('gender')}}
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('gender')&&form.controls.gender.hasError('required')">
-        Le champs est obligatoire
-      </p>
+    <div class="row">
+      <div class="col">
 
-      <label class="form-check-label">
-        {{g}}
-      </label>
-    </div>
-    <div class="form-group-inline">
-      <input formControlName="firstName" type="text" placeholder="Votre prénom" class="form-control mb-1"
-        [class.is-invalid]="hasErrors('firstName')||getErrorForControl('firstName')">
-      <p class="invalid-feedback" *ngIf="getErrorForControl('firstName')">
-        {{getErrorForControl('firstName')}}
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('firstName')&&form.controls.firstName.hasError('required')">
-        Le champs est obligatoire
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('firstName')&&form.controls.firstName.hasError('minlength')">
-        Le prénom doit avoir au moins 2 caractères
-      </p>
-    </div>
-    <div class="form-group-inline">
-      <input formControlName="lastName" type="text" placeholder="Votre nom" class="form-control mb-1"
-        [class.is-invalid]="hasErrors('lastName')||getErrorForControl('lastName')">
-      <p class="invalid-feedback" *ngIf="getErrorForControl('lastName')">
-        {{getErrorForControl('lastName')}}
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('lastName')&&form.controls.lastName.hasError('required')">
-        Le champs est obligatoire
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('lastName')&&form.controls.lastName.hasError('minlength')">
-        Le nom de famillle doit avoir au moins 2 caractères
-      </p>
+        <div class="col">
+          <div class="control-group">
+
+            <div class="form-check-inline" *ngFor="let g of gender">
+              <input formControlName="gender" class="form-check-input " type="radio" [value]="g"
+                (click)="handleGender(g)" [class.is-invalid]="hasErrors('gender')||getErrorForControl('gender')">
+              <p class="invalid-feedback" *ngIf="getErrorForControl('gender')">
+                {{getErrorForControl('gender')}}
+              </p>
+              <p class="invalid-feedback" *ngIf="hasErrors('gender')&&form.controls.gender.hasError('required')">
+                Le champs est obligatoire
+              </p>
+
+              <label class="form-check-label floating-label-form-group">
+                {{g}}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="control-group">
+            <div class="form-group-inline">
+              <input formControlName="firstName" type="text" placeholder="Votre prénom" class="form-control mb-1"
+                [class.is-invalid]="hasErrors('firstName')||getErrorForControl('firstName')">
+              <p class="invalid-feedback" *ngIf="getErrorForControl('firstName')">
+                {{getErrorForControl('firstName')}}
+              </p>
+              <p class="invalid-feedback" *ngIf="hasErrors('firstName')&&form.controls.firstName.hasError('required')">
+                Le champs est obligatoire
+              </p>
+              <p class="invalid-feedback" *ngIf="hasErrors('firstName')&&form.controls.firstName.hasError('minlength')">
+                Le prénom doit avoir au moins 2 caractères
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="control-group">
+
+            <div class="form-group-inline">
+              <input formControlName="lastName" type="text" placeholder="Votre nom" class="form-control mb-1"
+                [class.is-invalid]="hasErrors('lastName')||getErrorForControl('lastName')">
+              <p class="invalid-feedback" *ngIf="getErrorForControl('lastName')">
+                {{getErrorForControl('lastName')}}
+              </p>
+              <p class="invalid-feedback" *ngIf="hasErrors('lastName')&&form.controls.lastName.hasError('required')">
+                Le champs est obligatoire
+              </p>
+              <p class="invalid-feedback" *ngIf="hasErrors('lastName')&&form.controls.lastName.hasError('minlength')">
+                Le nom de famillle doit avoir au moins 2 caractères
+              </p>
 
 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+
+        <div class="form-group">
+          <div class="control-group">
+
+            <input formControlName="email" type="email" placeholder="Votre adressse email" class="form-control mb-1"
+              [class.is-invalid]="hasErrors('email')||getErrorForControl('email')">
+            <p class="invalid-feedback" *ngIf="getErrorForControl('email')">
+              {{getErrorForControl('email')}}
+            </p>
+            <p class="invalid-feedback" *ngIf="hasErrors('email')&&form.controls.email.hasError('required')">
+              Le champs est obligatoire
+            </p>
+            <p class="invalid-feedback" *ngIf="hasErrors('email')&&form.controls.email.hasError('email')">
+              Cela ne ressemble pas un email valide
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-group">
+            <input formControlName="password" type="password" placeholder="Entrer un mot de passe"
+              class="form-control mb-1" [class.is-invalid]="hasErrors('password')||getErrorForControl('password')">
+            <p class="invalid-feedback" *ngIf="getErrorForControl('password')">
+              {{getErrorForControl('password')}}
+            </p>
+            <p class="invalid-feedback" *ngIf="hasErrors('password')&&form.controls.password.hasError('required')">
+              Le champs est obligatoire
+            </p>
+            <p class="invalid-feedback" *ngIf="hasErrors('password')&&form.controls.password.hasError('minlength')">
+              Le mot de passe doit contenir au moins 8 caractères
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-group">
+            <input formControlName="confirmation" type="password" placeholder="Confirmer le mot de passe"
+              class="form-control mb-1"
+              [class.is-invalid]="hasErrors('confirmation')||getErrorForControl('confirmation')">
+            <p class="invalid-feedback" *ngIf="getErrorForControl('confirmation')">
+              {{getErrorForControl('confirmation')}}
+            </p>
+            <p class="invalid-feedback"
+              *ngIf="hasErrors('confirmation')&&form.controls.confirmation.hasError('required')">
+              Le champs est obligatoire
+            </p>
+            <p class="invalid-feedback"
+              *ngIf="hasErrors('confirmation')&&form.controls.confirmation.hasError('minlength')">
+              Le mot de passe doit contenir au moins 8 caractères
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <input formControlName="email" type="email" placeholder="Votre adressse email" class="form-control mb-1"
-        [class.is-invalid]="hasErrors('email')||getErrorForControl('email')">
-      <p class="invalid-feedback" *ngIf="getErrorForControl('email')">
-        {{getErrorForControl('email')}}
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('email')&&form.controls.email.hasError('required')">
-        Le champs est obligatoire
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('email')&&form.controls.email.hasError('email')">
-        Cela ne ressemble pas un email valide
-      </p>
-    </div>
-    <div class="form-group">
-      <input formControlName="password" type="password" placeholder="Entrer un mot de passe" class="form-control mb-1"
-        [class.is-invalid]="hasErrors('password')||getErrorForControl('password')">
-      <p class="invalid-feedback" *ngIf="getErrorForControl('password')">
-        {{getErrorForControl('password')}}
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('password')&&form.controls.password.hasError('required')">
-        Le champs est obligatoire
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('password')&&form.controls.password.hasError('minlength')">
-        Le mot de passe doit contenir au moins 8 caractères
-      </p>
-    </div>
-    <div class="form-group">
-      <input formControlName="confirmation" type="password" placeholder="Confirmer le mot de passe"
-        class="form-control mb-1" [class.is-invalid]="hasErrors('confirmation')||getErrorForControl('confirmation')">
-      <p class="invalid-feedback" *ngIf="getErrorForControl('confirmation')">
-        {{getErrorForControl('confirmation')}}
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('confirmation')&&form.controls.confirmation.hasError('required')">
-        Le champs est obligatoire
-      </p>
-      <p class="invalid-feedback" *ngIf="hasErrors('confirmation')&&form.controls.confirmation.hasError('minlength')">
-        Le mot de passe doit contenir au moins 8 caractères
-      </p>
-    </div>
-    <div class="form-group border rounded p-5 mr-5 ml-5">
-      <h4 class="text-center">Classe(s)</h4>
-      <div class="form-check-inline" *ngFor="let c of classes">
-        <input class="form-check-input" type="checkbox" [value]="c" (change)="handleChange($event)"
-          [class.is-invalid]="!classesSelected||submitted">
-        <p class="invalid-feedback">
-          Veuillez selectionner au moins un classe
-        </p>
-        <label class="form-check-label" [for]="c">
-          {{c}}
+    <div class=" my-3 ">
+      <div class="control-group">
+
+        <h4 class="text-center">Classe(s)</h4>
+        <div class="form-group d-flex justify-content-around">
+          <div *ngFor="let c of classes" class="mr-4">
+            <input class="form-check-input" type="checkbox" [value]="c" [id]="c" (click)="handleChange(c)">
+            <label class=" floating-label-form-group " [for]="c">
+              {{c}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+
+        <hr>
+
+
+      </div>
+      <div class="form-group controls text-right">
+        <input class="form-check-input" type="checkbox" id="newsletter" formControlName="emailNotification">
+        <label class="form-check-label floating-label-form-group" for="newsletter">
+          Recevoir une notification lors de l'ajout d'un article
         </label>
       </div>
     </div>
-
-    <textarea class="form-control" formControlName="about" placeholder="Parlez nous de vous"></textarea>
-    <div>
-
-      <input class="form-check-input" type="checkbox" id="emailNotification" formControlName="emailNotification">
-      <label class=" form-check-label" for="emailNotification">
-        Recevoir une notification lors de l'ajout d'un article
-      </label>
+    <div class="form-group floating-label-form-group controls">
+      <textarea class="form-control mb-2" rows="5" placeholder="Parlez nous de vous ... "
+        formControlName="about"></textarea>
     </div>
 
     <div>
-      <button class="btn btn-primary">S'enregistrer</button>
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview">
+
+          <p class="post-meta">
+            Après l'envoi de ce formulaire les membre de l'APEL STDA verifierons votre identité grâce aux infomations
+            que
+            vous avez communiquer et validerons le cas échéant votre inscription.
+          </p>
+          <p class="post-meta">
+            D'ici là vous ne pourrez pas vous connecter, vous serez notifié de votre inscription effective.
+          </p>
+        </div>
+      </div>
+      <button class="btn text-primary">S'enregistrer</button>
+      <a routerLink="/login" class="btn text-danger">Annuler</a>
     </div>
-
-
   </form>
 </div>
