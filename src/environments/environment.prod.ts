@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://apelstda.xaviervitali.fr/api',
+  assetFiles: 'https://apelstda.xaviervitali.fr/assets/files/',
 };

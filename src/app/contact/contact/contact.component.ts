@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-contact',
@@ -17,7 +18,11 @@ export class ContactComponent implements OnInit {
   });
   submitted = false;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -28,10 +33,14 @@ export class ContactComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+
     this.http
       .post(environment.apiUrl + '/contacts', {
         ...this.form.value,
-        receiver: 'api/users/132',
+        receiver: 'api/users/' + this.auth.user.id,
+        sender: 'api/users/' + this.auth.user.id,
+
+        channel: 'espace contact',
       })
       .subscribe(
         () => {

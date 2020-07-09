@@ -1,16 +1,13 @@
-<header class="masthead" style="background-image: url('assets/own-img/police-fun-funny-uniform-33598.jpg')">
+<header class="masthead"
+    style="background-image: url('assets/own-img/police-fun-funny-uniform-33598.jpg'); background-position: top;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="post-heading">
-                    <h1>Commentaires bloqués</h1>
-                    <!-- <h2>{{article.title | uppercase}}</h2>
-                    <span class="subheading">{{article.author.firstName}} {{article.author.lastName}}</span>
-
-                    <p class="meta"> le
-                        {{article.updatedAt | date:("dd/MM/yyyy")}}
-                    </p> -->
+                <div class="site-heading">
+                    <h1>Espace modérateur
+                    </h1>
+                    <span class="subheading">Retrouvez tous les commentaires que vous avez bloqués</span>
                 </div>
             </div>
         </div>
@@ -26,7 +23,8 @@
         <thead>
 
             <th class="post-preview">
-                Commentaire de</th>
+                De</th>
+            <th>Commentaire</th>
             <th class="post-preview text-center">
                 Article concerné</th>
             <th class="post-preview text-center">
@@ -35,6 +33,7 @@
         <tbody>
             <tr *ngFor="let bc of blockedComments">
                 <td>{{bc.author.firstName}} {{bc.author.lastName}}</td>
+                <td>{{bc.content}}</td>
                 <td><a routerLink="/article/{{bc.article.id}}"> {{bc.article.title}}</a></td>
                 <td>
                     <button class="btn btn-sm text-success" (click)="handleUnblock(bc.id)">débloquer </button>

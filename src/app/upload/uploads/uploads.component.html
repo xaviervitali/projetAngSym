@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1>les téléchargements</h1>
-                    <!-- <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
+                    <h1>Téléchargements</h1>
+                    <span class="subheading">Bibliothèque multimédia</span>
                 </div>
             </div>
         </div>
@@ -22,34 +22,35 @@
 
 <div class="row" *ngFor="let up of uploads">
     <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview d-flex justify-content-around">
+        <div class="row text-center">
 
-            <a href="http://localhost:3000/assets/files/{{up.fileUploadedName}}" target="_blank">
+            <a [href]="transformUrl(up.fileUploadedName)" target="_blank" data-toggle="tooltip" data-placement="top"
+                [title]="
+                    getFileName(up.fileUploadedName)" class="col-4">
                 <img *ngIf=" !isVideo(up.fileUploadedName) &&!isImage(up.fileUploadedName)" class=" m-1"
-                    src="../../../assets/own-img/fichier-prospection-95.jpg" style="max-width: 250px;"
-                    alt="{{up.fileUploadedName}}">
+                    src="assets/own-img/fichier-prospection-95.jpg" style="max-width: 250px;"
+                    [alt]="transformUrl(up.fileUploadedName)">
 
 
-                <img *ngIf="isImage(up.fileUploadedName)" class=" m-1" style="max-width: 250px;"
-                    src="http://localhost:3000/assets/files/{{up.fileUploadedName}}" alt="{{up.fileUploadedName}}">
+                <img *ngIf=" isImage(up.fileUploadedName)" class=" m-1" style="max-width: 250px;"
+                    [src]="transformUrl(up.fileUploadedName)" [alt]="transformUrl(up.fileUploadedName)">
 
 
-                <video *ngIf="isVideo(up.fileUploadedName)" controls width="250" autoplay class="m-1">
+                <video *ngIf="isVideo(up.fileUploadedName)" autoplay width="250" controls class="m-1"
+                    oncanplay="this.muted=true">
 
-                    <source src="http://localhost:3000/assets/files/{{up.fileUploadedName}}" type="video/webm">
+                    <source [src]="transformUrl(up.fileUploadedName)" type="video/webm">
 
                     Désolé votre navigateur ne supporte pas ce format de vidéo
                 </video>
-                <p class="post-meta">
-                    {{getFileName(up.fileUploadedName)}}
-                </p>
+
             </a>
-            <h3>
+            <h3 class="col-4">
 
                 {{up.title}}
                 <!-- </span> -->
             </h3>
-            <p>Posté par
+            <p class="col-4">Posté par
                 <strong>
 
                     {{up.addedBy.firstName}} {{up.addedBy.lastName}} </strong>

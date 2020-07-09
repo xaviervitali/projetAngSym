@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../upload.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-uploads',
@@ -53,8 +54,16 @@ export class UploadsComponent implements OnInit {
       .reverse()
       .join('');
 
-    const originalFileName = file.slice(0, file.indexOf('-'));
+    const originalFileName = reverse
+      .slice(reverse.indexOf('-') + 1)
+      .split('')
+      .reverse()
+      .join('');
 
     return originalFileName + '.' + extension;
+  }
+
+  transformUrl(fileUrl: string) {
+    return environment.assetFiles + fileUrl;
   }
 }
