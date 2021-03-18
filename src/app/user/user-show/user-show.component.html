@@ -85,10 +85,10 @@
 
             <li *ngFor=" let r of user.roles">
 
-                {{translateRole(r) }}
+                {{r | role }}
             </li>
         </ul>
-        <ng-template #elseBlock>{{translateRole('ROLE_SCHOOL')}}</ng-template>
+        <ng-template #elseBlock>Vous pouvez consulter tous les articles et toutes les catégories</ng-template>
     </div>
 
 </form>

@@ -35,17 +35,29 @@
       <input type="password" class="form-control" placeholder="Mot de passe"
         [class.is-invalid]="form.controls['password'].invalid&&submitted" formControlName="password">
       <p class="invalid-feedback" *ngIf="form.controls['password'].hasError('required')&&submitted">
-        Le mote de passe est obligatoire !!!
+        Le mot de passe est obligatoire !!!
       </p>
 
     </div>
-    <div>
-      <p>Pas encore inscrit ?
+    <div class="d-flex justify-content-around" *ngIf="!loggin">
+      <div>
 
-        <a routerLink="/register">Inscription</a>
-      </p>
+        <button class="btn text-success">Connexion</button>
+      </div>
+      <div>
+
+        <a routerLink="/register">
+          <button class="btn text-info btn-sm ">Inscription</button>
+
+        </a>
+      </div>
     </div>
-    <button class="btn text-success">Connexion</button>
+    <div *ngIf="loggin">
+      <div class=" text-success">Connexion en cours</div>
+      <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
   </form>
-
 </div>

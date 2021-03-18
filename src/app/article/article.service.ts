@@ -18,17 +18,17 @@ export class ArticleService {
       .pipe(map((data) => data['hydra:member'] as Article[]));
   }
 
-  delete(id: number) {
-    return this.http.delete(environment.apiUrl + '/articles/' + id);
+  delete(slug: any) {
+    return this.http.delete(environment.apiUrl + '/articles/' + slug);
   }
 
-  find(id: any) {
-    return this.http.get<Article>(environment.apiUrl + '/articles/' + id);
+  find(slug: any) {
+    return this.http.get<Article>(environment.apiUrl + '/articles/' + slug);
   }
 
   update(article: Article) {
     return this.http.put<Article>(
-      environment.apiUrl + '/articles/' + article.id,
+      environment.apiUrl + '/articles/' + article.slug,
       article
     );
   }
@@ -59,10 +59,15 @@ export class ArticleService {
       }
     );
   }
-
   getCategoryArticle(id: number) {
     return this.http
       .get<Article[]>(environment.apiUrl + '/articles?category=' + id)
       .pipe(map((data) => data['hydra:member'] as Article[]));
+  }
+
+  getCommentsFromArticle(slug: any) {
+    return this.http
+      .get(environment.apiUrl + '/comments?/api/article/' + slug)
+      .pipe(map((data) => data['hydra:member']));
   }
 }

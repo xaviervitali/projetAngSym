@@ -6,6 +6,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/auth/auth.service';
+import { environment } from 'src/environments/environment.prod';
+import { pipe, VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-view',
@@ -13,7 +15,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./view.component.css'],
 })
 export class ArticleViewComponent implements OnInit {
-  article: Article;
+  article;
   errorMessage: string;
   submitted = false;
   comments = [];
@@ -34,9 +36,16 @@ export class ArticleViewComponent implements OnInit {
         switchMap((id) => this.articleService.find(id))
       )
       .subscribe(
-        (article) => {
-          this.article = article;
-          this.comments = article.comments;
+        (data) => {
+          this.article = data;
+          if (!this.auth.hasRole('ROLE_SCHOOL')) {
+            this.articleService
+              .getCommentsFromArticle(this.article.slug)
+              .subscribe(
+                (comments) => (this.comments = comments),
+                (e) => console.log(e)
+              );
+          }
         },
         (e) =>
           (this.errorMessage = "l'article demandé n'existe pas".toLocaleUpperCase())
@@ -44,7 +53,7 @@ export class ArticleViewComponent implements OnInit {
   }
 
   handleDelete() {
-    this.articleService.delete(this.article.id).subscribe(() => {
+    this.articleService.delete(this.article.slug).subscribe(() => {
       this.router.navigateByUrl('/articles');
     });
   }
@@ -59,14 +68,18 @@ export class ArticleViewComponent implements OnInit {
       author: this.auth.user,
       createdAt: new Date(),
     };
+
     this.comments.push(comment);
     this.articleService
       .createComment({
-        ...this.form.value,
-        article: '/api/articles/' + this.article.id,
+        ...comment,
+        author: environment.apiUrl + '/users/' + this.auth.user.id,
+        article: environment.apiUrl + '/articles/' + this.article.slug,
       })
       .subscribe(
         (co: any) => {
+          console.log(this.comments);
+
           this.comments.find((c) => c === comment).id = co.id;
         },
         (e) => {

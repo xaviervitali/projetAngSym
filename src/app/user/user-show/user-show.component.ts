@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
 import { User } from 'src/app/auth/user';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RolePipe } from 'src/app/role.pipe';
 
 @Component({
   selector: 'app-user-show',
@@ -85,19 +86,5 @@ export class UserShowComponent implements OnInit {
 
   handleGender(gender: any) {
     this.form.controls.gender.setValue(gender);
-  }
-
-  translateRole(role) {
-    const roles = {
-      ROLE_ADMIN: `Vous pouvez acceder à la page d'administation, supprimer un article, bloquer des commentaires, modifier la catégorie d'un article, et en créer de nouvelles`,
-      ROLE_MODERATOR: `Vous pouvez supprimer un article, bloquer des commentaires, modifier la catégorie d'un article, en créer et en supprimer`,
-      ROLE_WRITTER:
-        "Vous pouvez créer des articles,  modifier l'intégralité de vos articles et bloquer les commentaires liés",
-      ROLE_USER:
-        'Vous pouvez consulter toutes les catégories, tous les articles et les commenter',
-      ROLE_SCHOOL:
-        'Vous pouvez consulter tous les articles et  toutes les catégories',
-    };
-    return roles[role];
   }
 }

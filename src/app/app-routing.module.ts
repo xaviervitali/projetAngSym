@@ -16,16 +16,16 @@ import { ContactComponent } from './contact/contact/contact.component';
 import { CommentsComponent } from './comment/comments/comments.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/articles', pathMatch: 'full' },
   {
     path: 'articles',
     component: ArticlesComponent,
-    resolve: { article: ArticlesResolverService },
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'article/create', component: ArticleCreateComponent },
   { path: 'article/:id', component: ArticleViewComponent },
-  { path: 'article/edit/:id', component: ArticleEditComponent },
+  { path: 'article/edition/:id', component: ArticleEditComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'categorie/:id', component: ViewArticlesComponent },
   { path: 'categorie/edition/:id', component: CategoryEditComponent },
@@ -33,6 +33,7 @@ const routes: Routes = [
   { path: 'uploads', component: UploadsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'dashboard', component: CommentsComponent },
+  { path: '**', redirectTo: '/articles', pathMatch: 'full' },
 ];
 
 @NgModule({

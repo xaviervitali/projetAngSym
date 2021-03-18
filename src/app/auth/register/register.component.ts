@@ -42,7 +42,8 @@ export class RegisterComponent implements OnInit {
   error = false;
   constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   handleSubmit() {
     this.loading = true;
@@ -53,8 +54,9 @@ export class RegisterComponent implements OnInit {
       this.userService
         .create({
           ...this.form.value,
-          children: this.classesSelected,
+          // children: this.classesSelected,
           granted: false,
+          children:["Not Yet"]
         })
         .subscribe(
           (user) => {

@@ -1,45 +1,55 @@
-<div>
-
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('assets/theme/img/home-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Les articles
-            </h1>
-            <span class="subheading">Derniers communiqués de l'APEL STDA</span>
-          </div>
+<!-- Page Header -->
+<header class="masthead" style="background-image:url('assets/theme/img/home-bg.jpg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Les articles</h1>
+          <span class="subheading">Derniers communiqués de l'APEL STDA</span>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
 
 
 
-  <div class="container">
+<div class="container">
+
+  <div class="text-center text-primary m-3" *ngIf="!loadded">
+    Chargement de la liste des articles en cours ...
+    <div class="spinner-border text-primary " role="status">
+    </div>
+  </div>
+
+
+
+  <div *ngIf="articles.length>0&&loadded">
+
     <div class="row" *ngFor="let a of getArticlesFromCurrentPage()">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
-          <a href="/article/{{a.id}}">
+          <a href="/article/{{a.slug}}">
             <h2 class="post-title">
               {{a.title}}
             </h2>
-            <h3 class="post-subtitle">
-              <span *ngIf=" !auth.hasRole('ROLE_SCHOOL')">{{a.comments.length}}
+            <h3 class="post-subtitle" *ngIf="a.comments">
+              <p>{{removeHtmlTags(a.content)}}</p>
+              <span *ngIf="!auth.hasRole('ROLE_SCHOOL')" style="font-size: 1rem;">{{a.comments.length}}
                 Commentaire(s)</span>
             </h3>
           </a>
 
           <p class="post-meta">Posté par
             <strong> {{a.author.firstName}} {{a.author.lastName}} </strong>
-            le {{a.createdAt|date:'d MMM y à HH:mm'}} <span *ngIf="a.updatedAt">(mise à jour le
-              {{a.updatedAt|date:'d/M/y à HH:mm'}})</span> </p>
+            le {{a.createdAt|date:'d/MM/yy à HH:mm'}} <span
+              *ngIf="a.updatedAt.slice(0,16)!=a.createdAt.slice(0,16)">(mise à jour le
+              {{a.updatedAt|date:'d/MM/yy à HH:mm'}})</span> </p>
         </div>
         <p class="post-subtitle" *ngIf="a.category">
-          <a routerLink="/categorie/{{a.category.id}}"> Dans la catégorie {{a.category.title}}</a>
+          <a routerLink="/categorie/{{a.category.id}}">Dans la catégorie {{a.category.title}}</a>
         </p>
         <hr>
 
@@ -47,7 +57,10 @@
       </div>
 
     </div>
+  </div>
+  <div *ngIf="articles.length===0&&loadded" class="text-center">Pas d'article à ce jour</div>
 
-    <app-pagination [currentPage]="currentPage" [items]="articles.length" [itemsPerPage]="itemsPerPage"
-      (pageChange)="currentPage=$event">
-    </app-pagination>
+  <app-pagination [currentPage]="currentPage" [items]="articles.length" [itemsPerPage]="itemsPerPage"
+    (pageChange)="currentPage=$event" *ngIf="articles.length>itemsPerPage">
+  </app-pagination>
+</div>

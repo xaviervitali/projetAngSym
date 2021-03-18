@@ -40,8 +40,11 @@ export class ArticleEditComponent implements OnInit {
 
     this.activatedRoute.paramMap
       .pipe(
-        map((params) => +params.get('id')),
-        switchMap((id) => this.articleService.find(id)),
+        map((params) => params.get('id')),
+        switchMap((slug) => {
+          console.log(slug);
+          return this.articleService.find(slug);
+        }),
         map((article) => {
           let id = null;
           if (article.category) {
@@ -63,7 +66,11 @@ export class ArticleEditComponent implements OnInit {
   handleSubmit() {
     this.submitted = true;
     this.articleService
-      .update({ ...this.form.value, id: this.article.id })
+      .update({
+        ...this.form.value,
+        slug: this.article.slug,
+        title: this.article.title,
+      })
       .subscribe(
         (article) => {
           this.router.navigateByUrl('/articles');

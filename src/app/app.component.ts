@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UiService } from './ui/ui.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',

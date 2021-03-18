@@ -14,10 +14,11 @@
 </header>
 
 
-<div *ngIf="noUpload">
-    <p>Pas de téléchargement a ce jour ...</p>
+<div class="text-center text-primary m-3" *ngIf="!uploads">
+    Chargement de la liste des téléchargements en cours ...
+    <div class="spinner-border text-primary " role="status">
+    </div>
 </div>
-
 
 
 <div class="row" *ngFor="let up of uploads">
@@ -50,11 +51,18 @@
                 {{up.title}}
                 <!-- </span> -->
             </h3>
-            <p class="col-4">Posté par
-                <strong>
+            <div class="col-4">Posté par
+                <div>
 
-                    {{up.addedBy.firstName}} {{up.addedBy.lastName}} </strong>
-                le {{up.updatedAt|date:'d MMM y à HH:mm'}}</p>
+                    <strong>
+
+                        {{up.addedBy.firstName}} {{up.addedBy.lastName}} </strong>
+                </div>
+                <div>
+
+                    le {{up.updatedAt|date:'d/MM/yy à HH:mm'}}
+                </div>
+            </div>
             <!-- <h2 class=" post-title">
                 {{a.title |uppercase}}
             </h2>

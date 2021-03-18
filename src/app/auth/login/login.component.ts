@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   });
   error = false;
   submitted = false;
+  loggin = false;
   constructor(
     private authService: AuthService,
     private route: Router,
@@ -27,16 +28,20 @@ export class LoginComponent implements OnInit {
 
   handleSubmit() {
     this.submitted = true;
+
     if (this.form.invalid) {
       return;
     }
+    this.loggin = true;
+    this.error = false;
+
     this.authService.authenticate(this.form.value).subscribe(
       (token) => {
-        this.error = false;
+        this.loggin = false;
         this.route.navigateByUrl('/articles');
       },
       (e) => {
-        console.log(e);
+        this.loggin = false;
         this.error = true;
       }
     );

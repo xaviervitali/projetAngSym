@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./uploads.component.css'],
 })
 export class UploadsComponent implements OnInit {
-  uploads: [] = [];
+  uploads: [];
   loading = true;
   noUpload: boolean;
   constructor(private uploadService: UploadService) {}
@@ -64,6 +64,6 @@ export class UploadsComponent implements OnInit {
   }
 
   transformUrl(fileUrl: string) {
-    return environment.assetFiles + fileUrl;
+    return environment.assetsFiles + fileUrl;
   }
 }

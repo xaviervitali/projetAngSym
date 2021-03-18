@@ -131,7 +131,7 @@
       </div>
     </div>
     <div class=" my-3 ">
-      <div class="control-group">
+      <!-- <div class="control-group">
 
         <h4 class="text-center">Classe(s)</h4>
         <div class="form-group d-flex justify-content-around">
@@ -142,7 +142,7 @@
             </label>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div>
 
@@ -150,15 +150,15 @@
 
 
       </div>
-      <div class="form-group controls text-right">
-        <input class="form-check-input" type="checkbox" id="newsletter" formControlName="emailNotification">
+      <div class="form-group controls text-right" >
+        <input class="form-check-input" type="checkbox" id="newsletter" formControlName="emailNotification" >
         <label class="form-check-label floating-label-form-group" for="newsletter">
           Recevoir une notification lors de l'ajout d'un article
         </label>
       </div>
     </div>
     <div class="form-group floating-label-form-group controls">
-      <textarea class="form-control mb-2" rows="5" placeholder="Parlez nous de vous ... "
+      <textarea class="form-control mb-2" rows="5" placeholder="Quelques mots sur vous qui permettrons à un admistrateur de validé votre accès, d'ici là vous ne pourrez pas vous connecter"
         formControlName="about"></textarea>
     </div>
 
@@ -166,14 +166,16 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
 
-          <p class="post-meta">
-            Après l'envoi de ce formulaire les membre de l'APEL STDA verifierons votre identité grâce aux infomations
-            que
-            vous avez communiquer et validerons le cas échéant votre inscription.
+          <!-- <p class="post-meta">
+            Après l'envoi de ce formulaire un admnistrateur verifieras votre identité grâce aux infomations
+            que vous avez communiqué pour valider votre inscription.
+          </p> -->
+          <p class="post-meta text-info ">
+            En vous inscrivant vous acceptez l'utilisation de vos informations personnelles par l'APEL STDA.
           </p>
-          <p class="post-meta">
+          <!-- <p class="post-meta text-danger">
             D'ici là vous ne pourrez pas vous connecter, vous serez notifié de votre inscription effective.
-          </p>
+          </p> -->
         </div>
       </div>
       <button class="btn text-primary">S'enregistrer</button>
